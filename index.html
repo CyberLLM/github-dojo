@@ -294,6 +294,7 @@
     <a href="#s8">08 Actions</a>
     <a href="#s9">09 Fork</a>
     <a href="#s10">10 SSH</a>
+    <a href="#cheatsheet" style="background:var(--ink);color:var(--paper);border-color:var(--ink);">⚡ Ściągawka</a>
   </nav>
 </header>
 
@@ -777,6 +778,206 @@ dist/<br>
     </div>
   </div>
 </article>
+
+<!-- CHEATSHEET SECTION -->
+<section id="cheatsheet" style="border-top: 2px solid var(--ink); padding: 4rem 0 2rem;">
+  <div style="margin-bottom:2rem;">
+    <span style="font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);">▸ Ściągawka</span>
+    <h2 style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;letter-spacing:-0.02em;margin-top:0.4rem;line-height:1.1;">Komendy Git <em style="font-style:italic;font-weight:300;color:var(--accent);">dla początkujących</em></h2>
+    <p style="color:var(--muted);font-size:0.95rem;margin-top:0.6rem;max-width:480px;">Kompletna ściągawka — skopiuj, wydrukuj, przyklej obok ekranu.</p>
+  </div>
+
+  <!-- KAŻDA SESJA — wyróżniony banner -->
+  <div style="background:var(--ink);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:2rem;">
+    <div style="font-family:'DM Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent);margin-bottom:0.8rem;">⚡ W każdej sesji — te trzy komendy wystarczą</div>
+    <div style="display:grid;gap:0.5rem;">
+      <div style="display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;">
+        <code style="font-family:'DM Mono',monospace;font-size:0.85rem;color:#86efac;flex-shrink:0;">git add .</code>
+        <span style="color:#7a7060;font-size:0.82rem;">— dodaj wszystkie zmienione pliki do staging</span>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;">
+        <code style="font-family:'DM Mono',monospace;font-size:0.85rem;color:#86efac;flex-shrink:0;">git commit -m "opis co zrobione"</code>
+        <span style="color:#7a7060;font-size:0.82rem;">— zapisz zmiany z opisem</span>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;">
+        <code style="font-family:'DM Mono',monospace;font-size:0.85rem;color:#fbbf24;flex-shrink:0;">git commit -a -m "wiadomość"</code>
+        <span style="color:#7a7060;font-size:0.82rem;">— add + commit w jednym kroku (tylko śledzone pliki)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID kart komend -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;">
+
+    <!-- Konfiguracja -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">⚙ Konfiguracja</div>
+      <div class="cmd-row"><code>git --version</code><span>wersja Gita</span></div>
+      <div class="cmd-row"><code>git config --list</code><span>cała konfiguracja</span></div>
+      <div class="cmd-row"><code>git config --global user.name "Jan"</code><span>ustaw nazwę</span></div>
+      <div class="cmd-row"><code>git config --global user.email "j@x.pl"</code><span>ustaw email</span></div>
+    </div>
+
+    <!-- Inicjalizacja -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">🌱 Inicjalizacja</div>
+      <div class="cmd-row"><code>git init</code><span>nowe repo w bieżącym folderze</span></div>
+      <div class="cmd-row"><code>git clone URL</code><span>pobierz istniejące repo</span></div>
+      <div class="cmd-row"><code>git clone URL folder</code><span>pobierz do konkretnego folderu</span></div>
+    </div>
+
+    <!-- Status i historia -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">🔍 Status i historia</div>
+      <div class="cmd-row"><code>git status</code><span>stan repozytorium</span></div>
+      <div class="cmd-row"><code>git log --oneline</code><span>lista commitów w skrócie</span></div>
+      <div class="cmd-row"><code>git show HEAD</code><span>ostatni commit</span></div>
+      <div class="cmd-row"><code>git show &lt;hash&gt;</code><span>konkretny commit</span></div>
+      <div class="cmd-row"><code>git diff HEAD~1 HEAD</code><span>porównaj ostatnią zmianę</span></div>
+    </div>
+
+    <!-- Dodawanie zmian -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">➕ Dodawanie zmian (staging)</div>
+      <div class="cmd-row"><code>git add nazwa_pliku</code><span>dodaj jeden plik</span></div>
+      <div class="cmd-row"><code>git add .</code><span>dodaj wszystkie zmiany</span></div>
+      <div class="cmd-row"><code>git add *.js</code><span>dodaj pliki pasujące do wzorca</span></div>
+      <div class="cmd-row"><code>git reset HEAD plik</code><span>cofnij z staging (nie zmienia pliku)</span></div>
+    </div>
+
+    <!-- Commit -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">💾 Commit</div>
+      <div class="cmd-row"><code>git commit -m "opis"</code><span>zapisz zmiany</span></div>
+      <div class="cmd-row"><code>git commit -a -m "opis"</code><span>add + commit naraz</span></div>
+      <div class="cmd-row"><code>git commit --amend</code><span>popraw ostatni commit</span></div>
+    </div>
+
+    <!-- Praca z plikami -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">📁 Praca z plikami</div>
+      <div class="cmd-row"><code>git mv stara nowa</code><span>zmiana nazwy / przeniesienie</span></div>
+      <div class="cmd-row"><code>git rm nazwa_pliku</code><span>usuń plik i dodaj do staging</span></div>
+      <div class="cmd-row"><code>git rm --cached plik</code><span>usuń z repo, zostaw lokalnie</span></div>
+      <div class="cmd-row"><code>git diff</code><span>podgląd niezapisanych zmian</span></div>
+    </div>
+
+    <!-- Branche -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">🌿 Branche</div>
+      <div class="cmd-row"><code>git branch</code><span>lista wszystkich branchy</span></div>
+      <div class="cmd-row"><code>git branch --show-current</code><span>aktualny branch</span></div>
+      <div class="cmd-row"><code>git checkout -b nazwa</code><span>nowy branch i przejdź na niego</span></div>
+      <div class="cmd-row"><code>git checkout main</code><span>przejdź na branch main</span></div>
+      <div class="cmd-row"><code>git merge nazwa</code><span>scal branch z aktualnym</span></div>
+      <div class="cmd-row"><code>git branch -d nazwa</code><span>usuń branch (po merge)</span></div>
+    </div>
+
+    <!-- GitHub / Remote -->
+    <div class="cmd-card">
+      <div class="cmd-card-title">☁ GitHub / Remote</div>
+      <div class="cmd-row"><code>git remote add origin URL</code><span>podepnij zdalne repo</span></div>
+      <div class="cmd-row"><code>git push -u origin main</code><span>wypchnij na GitHub (pierwszy raz)</span></div>
+      <div class="cmd-row"><code>git push</code><span>wypchnij kolejne commity</span></div>
+      <div class="cmd-row"><code>git pull</code><span>pobierz zmiany ze zdalnego</span></div>
+      <div class="cmd-row"><code>git fetch</code><span>pobierz info (bez merge)</span></div>
+      <div class="cmd-row"><code>git remote -v</code><span>lista zdalnych repozytoriów</span></div>
+    </div>
+
+    <!-- PowerShell -->
+    <div class="cmd-card cmd-card--ps">
+      <div class="cmd-card-title">🖥 Nawigacja — PowerShell</div>
+      <div class="cmd-row"><code>cd folder</code><span>wejdź do folderu</span></div>
+      <div class="cmd-row"><code>cd ..</code><span>katalog wyżej</span></div>
+      <div class="cmd-row"><code>ls</code><span>lista plików i folderów</span></div>
+      <div class="cmd-row"><code>mkdir nazwa</code><span>nowy folder</span></div>
+      <div class="cmd-row"><code>New-Item plik.txt</code><span>nowy plik</span></div>
+      <div class="cmd-row"><code>Rename-Item stara nowa</code><span>zmiana nazwy</span></div>
+      <div class="cmd-row"><code>rmdir -Recurse -Force folder</code><span>usuń folder z zawartością</span></div>
+    </div>
+
+  </div><!-- /grid -->
+
+  <!-- Copy tip -->
+  <div style="margin-top:1.5rem;padding:0.9rem 1.2rem;background:var(--paper2);border-left:3px solid var(--accent);border-radius:0 4px 4px 0;font-size:0.85rem;color:var(--muted);font-family:'DM Mono',monospace;">
+    💡 Kliknij komendę, żeby skopiować do schowka
+  </div>
+
+</section>
+
+<style>
+  .cmd-card {
+    background: var(--paper2);
+    border: var(--line);
+    border-radius: 8px;
+    padding: 1.1rem 1.2rem;
+  }
+  .cmd-card--ps {
+    background: #0d0d0d;
+    border-color: #2a2a2a;
+  }
+  .cmd-card--ps .cmd-card-title { color: #86efac; }
+  .cmd-card--ps .cmd-row code   { color: #86efac; }
+  .cmd-card--ps .cmd-row span   { color: #7a7060; }
+
+  .cmd-card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cmd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(200,192,176,0.2);
+    flex-wrap: wrap;
+  }
+  .cmd-row:last-child { border-bottom: none; }
+  .cmd-row code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink);
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cmd-row code:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .cmd-row code.copied {
+    background: var(--accent2);
+    color: #fff;
+  }
+  .cmd-row span {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: right;
+    flex: 1;
+    min-width: 120px;
+  }
+</style>
+
+<script>
+  // Copy on click
+  document.querySelectorAll('.cmd-row code').forEach(el => {
+    el.addEventListener('click', () => {
+      navigator.clipboard.writeText(el.textContent).then(() => {
+        el.classList.add('copied');
+        setTimeout(() => el.classList.remove('copied'), 1200);
+      });
+    });
+  });
+</script>
 
 </main>
 
