@@ -1,2 +1,2 @@
 # dojo_wiosna
-strona z materiałami do warsztatów
+strona z materiałami do instrukcji
