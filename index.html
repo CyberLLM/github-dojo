@@ -1,16 +1,788 @@
 <!DOCTYPE html>
 <html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub — Poradnik Praktyczny</title>
+<meta name="description" content="10 estetycznych porad jak efektywnie pracować na GitHub — od commitów po Pull Requesty.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper2: #ede9df;
+    --accent: #c84b31;
+    --accent2: #2d6a4f;
+    --accent3: #1a4d7c;
+    --muted: #7a7060;
+    --border: #c8c0b0;
+    --code-bg: #1a1a1a;
+    --code-fg: #e8e0d0;
+    --line: 1px solid var(--border);
+  }
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tytuł strony</title>
-  </head>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <body>
-	  <h1>Moja pierwsza strona www</h1>
-    <p>Tu idzie treść naszej strony.</p>
-    <p>Tu idzie dalsza treść naszej strony.</p>
-  </body>
+  html { scroll-behavior: smooth; }
 
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: var(--line);
+    padding: 3rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .header-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .header-meta span::before {
+    content: '▸ ';
+    color: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2rem;
+  }
+
+  .toc-strip {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .toc-strip a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    border: var(--line);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--muted);
+    transition: all 0.15s;
+    background: var(--paper2);
+  }
+
+  .toc-strip a:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* MAIN GRID */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* SECTION CARD */
+  .tip {
+    border-bottom: var(--line);
+    padding: 3.5rem 0;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .tip:nth-child(1) { animation-delay: 0.05s; }
+  .tip:nth-child(2) { animation-delay: 0.1s; }
+  .tip:nth-child(3) { animation-delay: 0.15s; }
+  .tip:nth-child(4) { animation-delay: 0.2s; }
+  .tip:nth-child(5) { animation-delay: 0.25s; }
+  .tip:nth-child(6) { animation-delay: 0.3s; }
+
+  .tip-number {
+    font-family: 'Fraunces', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--paper2);
+    -webkit-text-stroke: 1.5px var(--border);
+    text-align: center;
+    padding-top: 0.2rem;
+    user-select: none;
+  }
+
+  .tip-body h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .tip-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+  }
+
+  .tag-basics { background: #dbeafe; color: #1e40af; }
+  .tag-workflow { background: #dcfce7; color: #166534; }
+  .tag-collab { background: #fef3c7; color: #92400e; }
+  .tag-pro { background: #fce7f3; color: #9d174d; }
+
+  .tip-body p {
+    color: #3a3530;
+    margin-bottom: 1rem;
+    font-size: 0.97rem;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--code-bg);
+    border-radius: 6px;
+    padding: 1.2rem 1.4rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+
+  .code-block code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--code-fg);
+    line-height: 1.8;
+  }
+
+  .code-block .comment { color: #6b7280; }
+  .code-block .cmd { color: #86efac; }
+  .code-block .str { color: #fbbf24; }
+  .code-block .flag { color: #f9a8d4; }
+
+  /* INFOGRAPHICS — SVG */
+  .infographic {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: var(--line);
+    background: var(--paper2);
+  }
+
+  .infographic svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--paper2);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 1rem 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.92rem;
+  }
+
+  .callout strong {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* PILL LIST */
+  .pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: var(--line);
+    padding: 2rem;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 600px) {
+    .tip { grid-template-columns: 50px 1fr; gap: 1rem; }
+    .tip-number { font-size: 3rem; }
+    header { padding: 2rem 1.5rem 1.5rem; }
+    main { padding: 0 1.5rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-meta">
+    <span>Poradnik</span>
+    <span>Wersja kontroli</span>
+    <span>10 porad</span>
+  </div>
+  <h1>Praca na <em>GitHub</em><br>od podstaw do pro</h1>
+  <p class="subtitle">Estetyczny przewodnik po codziennej pracy z repozytoriami — commity, branche, Pull Requesty i więcej.</p>
+  <nav class="toc-strip" aria-label="Spis treści">
+    <a href="#s1">01 Repo</a>
+    <a href="#s2">02 Commit</a>
+    <a href="#s3">03 Branch</a>
+    <a href="#s4">04 .gitignore</a>
+    <a href="#s5">05 Pull Request</a>
+    <a href="#s6">06 README</a>
+    <a href="#s7">07 Issues</a>
+    <a href="#s8">08 Actions</a>
+    <a href="#s9">09 Fork</a>
+    <a href="#s10">10 SSH</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- TIP 1 -->
+<article class="tip" id="s1">
+  <div class="tip-number" aria-hidden="true">01</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-basics">Podstawy</span>
+    <h2>Inicjalizuj repozytorium z sensem</h2>
+    <p>Każdy projekt zaczyna się od <code>git init</code> lub klonowania istniejącego repo. Kluczowe: od razu ustaw poprawną gałąź główną i połącz z remote.</p>
+    <div class="code-block"><code>
+<span class="comment"># Nowe repo</span><br>
+<span class="cmd">git init</span> my-project<br>
+<span class="cmd">cd</span> my-project<br><br>
+<span class="comment"># Połącz z GitHub</span><br>
+<span class="cmd">git remote add</span> origin git@github.com:<span class="str">user/repo.git</span><br>
+<span class="cmd">git branch</span> <span class="flag">-M</span> main<br>
+<span class="cmd">git push</span> <span class="flag">-u</span> origin main
+    </code></div>
+
+    <!-- INFOGRAPHIC: Git Init Flow -->
+    <div class="infographic" aria-label="Diagram: inicjalizacja repozytorium">
+      <svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg" font-family="DM Mono, monospace">
+        <rect width="680" height="160" fill="#ede9df"/>
+        <!-- nodes -->
+        <rect x="20" y="50" width="120" height="60" rx="6" fill="#0d0d0d"/>
+        <text x="80" y="76" text-anchor="middle" fill="#f5f2eb" font-size="11" font-weight="500">git init</text>
+        <text x="80" y="95" text-anchor="middle" fill="#86efac" font-size="10">local repo</text>
+
+        <rect x="190" y="50" width="140" height="60" rx="6" fill="#0d0d0d"/>
+        <text x="260" y="76" text-anchor="middle" fill="#f5f2eb" font-size="11">git remote add</text>
+        <text x="260" y="95" text-anchor="middle" fill="#fbbf24" font-size="10">połącz z GitHub</text>
+
+        <rect x="380" y="50" width="130" height="60" rx="6" fill="#0d0d0d"/>
+        <text x="445" y="76" text-anchor="middle" fill="#f5f2eb" font-size="11">git push -u</text>
+        <text x="445" y="95" text-anchor="middle" fill="#f9a8d4" font-size="10">origin main</text>
+
+        <rect x="560" y="50" width="100" height="60" rx="6" fill="#c84b31"/>
+        <text x="610" y="76" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">GitHub</text>
+        <text x="610" y="95" text-anchor="middle" fill="#fce7e2" font-size="10">remote ✓</text>
+
+        <!-- arrows -->
+        <line x1="140" y1="80" x2="188" y2="80" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="330" y1="80" x2="378" y2="80" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="510" y1="80" x2="558" y2="80" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#c8c0b0"/>
+          </marker>
+        </defs>
+
+        <text x="340" y="148" text-anchor="middle" fill="#7a7060" font-size="10">Lokalny folder → Remote → Dostępny online</text>
+      </svg>
+    </div>
+  </div>
+</article>
+
+<!-- TIP 2 -->
+<article class="tip" id="s2">
+  <div class="tip-number" aria-hidden="true">02</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-basics">Podstawy</span>
+    <h2>Pisz commity jak dziennikarz — kto, co, po co</h2>
+    <p>Dobry commit message to inwestycja w przyszłość. Użyj konwencji <strong>Conventional Commits</strong>: prefix + zakres + opis zmian.</p>
+
+    <!-- INFOGRAPHIC: Conventional Commits -->
+    <div class="infographic" aria-label="Schemat: anatomia dobrego commita">
+      <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Mono, monospace" font-size="12">
+        <rect width="680" height="220" fill="#1a1a1a"/>
+
+        <!-- commit line -->
+        <text x="34" y="60" fill="#6b7280" font-size="11">$</text>
+        <text x="50" y="60" fill="#86efac">git commit -m</text>
+        <text x="50" y="85" fill="#fbbf24">"feat(auth): dodaj logowanie przez Google OAuth"</text>
+
+        <!-- annotation boxes -->
+        <!-- feat -->
+        <rect x="50" y="110" width="70" height="28" rx="3" fill="#166534" opacity="0.8"/>
+        <text x="85" y="129" text-anchor="middle" fill="#dcfce7" font-size="10" font-weight="500">feat</text>
+        <line x1="85" y1="110" x2="85" y2="91" stroke="#166534" stroke-width="1" stroke-dasharray="3,2"/>
+
+        <!-- scope -->
+        <rect x="140" y="110" width="70" height="28" rx="3" fill="#92400e" opacity="0.8"/>
+        <text x="175" y="129" text-anchor="middle" fill="#fef3c7" font-size="10">(auth)</text>
+        <line x1="175" y1="110" x2="175" y2="91" stroke="#92400e" stroke-width="1" stroke-dasharray="3,2"/>
+
+        <!-- desc -->
+        <rect x="230" y="110" width="200" height="28" rx="3" fill="#1e40af" opacity="0.8"/>
+        <text x="330" y="129" text-anchor="middle" fill="#dbeafe" font-size="10">opis co i dlaczego</text>
+        <line x1="330" y1="110" x2="330" y2="91" stroke="#1e40af" stroke-width="1" stroke-dasharray="3,2"/>
+
+        <!-- labels below -->
+        <text x="85" y="162" text-anchor="middle" fill="#86efac" font-size="9">typ zmiany</text>
+        <text x="175" y="162" text-anchor="middle" fill="#fbbf24" font-size="9">zakres</text>
+        <text x="330" y="162" text-anchor="middle" fill="#f9a8d4" font-size="9">imperativus</text>
+
+        <!-- types legend -->
+        <text x="34" y="195" fill="#6b7280" font-size="10">Typy: </text>
+        <text x="78" y="195" fill="#86efac" font-size="10">feat</text>
+        <text x="108" y="195" fill="#6b7280" font-size="10"> · </text>
+        <text x="118" y="195" fill="#f9a8d4" font-size="10">fix</text>
+        <text x="138" y="195" fill="#6b7280" font-size="10"> · </text>
+        <text x="148" y="195" fill="#fbbf24" font-size="10">docs</text>
+        <text x="178" y="195" fill="#6b7280" font-size="10"> · </text>
+        <text x="188" y="195" fill="#86efac" font-size="10">refactor</text>
+        <text x="244" y="195" fill="#6b7280" font-size="10"> · </text>
+        <text x="254" y="195" fill="#f9a8d4" font-size="10">chore</text>
+        <text x="290" y="195" fill="#6b7280" font-size="10"> · </text>
+        <text x="300" y="195" fill="#fbbf24" font-size="10">test</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <strong>Złota reguła</strong>
+      Commit = jedna logiczna zmiana. Nigdy nie mieszaj refactoru z bugfixem w jednym commicie.
+    </div>
+  </div>
+</article>
+
+<!-- TIP 3 -->
+<article class="tip" id="s3">
+  <div class="tip-number" aria-hidden="true">03</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-workflow">Workflow</span>
+    <h2>Branch to Twoja piaskownica — używaj go odważnie</h2>
+    <p>Gałęzie są tanie. Twórz osobny branch na każdy feature, bugfix lub eksperyment. Nigdy nie commituj bezpośrednio na <code>main</code>.</p>
+
+    <!-- INFOGRAPHIC: Branch Strategy -->
+    <div class="infographic" aria-label="Diagram: strategia gałęzi Git">
+      <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg" font-family="DM Mono, monospace">
+        <rect width="680" height="200" fill="#ede9df"/>
+
+        <!-- main line -->
+        <line x1="60" y1="100" x2="620" y2="100" stroke="#0d0d0d" stroke-width="2.5"/>
+        <text x="30" y="104" fill="#0d0d0d" font-size="10" font-weight="600">main</text>
+
+        <!-- commits on main -->
+        <circle cx="100" cy="100" r="8" fill="#0d0d0d"/>
+        <circle cx="220" cy="100" r="8" fill="#0d0d0d"/>
+        <circle cx="460" cy="100" r="8" fill="#c84b31"/>
+        <circle cx="580" cy="100" r="8" fill="#0d0d0d"/>
+
+        <!-- feature branch -->
+        <path d="M220,100 Q240,55 280,50" stroke="#2d6a4f" stroke-width="2" fill="none" stroke-dasharray="4,2"/>
+        <line x1="280" y1="50" x2="420" y2="50" stroke="#2d6a4f" stroke-width="2"/>
+        <path d="M420,50 Q445,55 460,100" stroke="#2d6a4f" stroke-width="2" fill="none"/>
+        <circle cx="320" cy="50" r="7" fill="#2d6a4f"/>
+        <circle cx="380" cy="50" r="7" fill="#2d6a4f"/>
+        <text x="350" y="35" text-anchor="middle" fill="#2d6a4f" font-size="10">feature/nowy-panel</text>
+
+        <!-- hotfix branch -->
+        <path d="M220,100 Q240,148 280,155" stroke="#1a4d7c" stroke-width="2" fill="none" stroke-dasharray="4,2"/>
+        <line x1="280" y1="155" x2="360" y2="155" stroke="#1a4d7c" stroke-width="2"/>
+        <path d="M360,155 Q380,148 400,100" stroke="#1a4d7c" stroke-width="2" fill="none"/>
+        <circle cx="320" cy="155" r="7" fill="#1a4d7c"/>
+        <text x="320" y="175" text-anchor="middle" fill="#1a4d7c" font-size="10">hotfix/login-bug</text>
+
+        <!-- merge label -->
+        <text x="460" y="88" text-anchor="middle" fill="#c84b31" font-size="9">MERGE</text>
+
+        <!-- labels commit times -->
+        <text x="100" y="125" text-anchor="middle" fill="#7a7060" font-size="9">v1.0</text>
+        <text x="220" y="125" text-anchor="middle" fill="#7a7060" font-size="9">branch</text>
+        <text x="580" y="125" text-anchor="middle" fill="#7a7060" font-size="9">v1.1</text>
+      </svg>
+    </div>
+
+    <div class="code-block"><code>
+<span class="cmd">git checkout</span> <span class="flag">-b</span> feature/<span class="str">moja-funkcja</span><br>
+<span class="comment"># ... praca, commity ...</span><br>
+<span class="cmd">git push</span> origin feature/<span class="str">moja-funkcja</span>
+    </code></div>
+  </div>
+</article>
+
+<!-- TIP 4 -->
+<article class="tip" id="s4">
+  <div class="tip-number" aria-hidden="true">04</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-basics">Podstawy</span>
+    <h2>.gitignore — nie commituj śmieci</h2>
+    <p>Zanim zrobisz pierwszy commit, skonfiguruj <code>.gitignore</code>. Node modules, pliki <code>.env</code>, cache IDE — to wszystko nie należy do repozytorium.</p>
+
+    <div class="code-block"><code>
+<span class="comment"># .gitignore — projekt Python/Node</span><br>
+node_modules/<br>
+__pycache__/<br>
+*.pyc<br>
+.env<br>
+.env.local<br>
+*.log<br>
+.DS_Store<br>
+dist/<br>
+.vscode/settings.json
+    </code></div>
+
+    <div class="callout">
+      <strong>Pro tip</strong>
+      Użyj <a href="https://gitignore.io" style="color:var(--accent)">gitignore.io</a> — wpisz technologię, dostaniesz gotowy plik. GitHub też proponuje .gitignore przy tworzeniu repo.
+    </div>
+
+    <!-- INFOGRAPHIC: co commitować -->
+    <div class="infographic" aria-label="Diagram: co należy do repo, co nie">
+      <svg viewBox="0 0 680 140" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif" font-size="12">
+        <rect width="680" height="140" fill="#ede9df"/>
+
+        <!-- YES column -->
+        <rect x="30" y="20" width="280" height="100" rx="6" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+        <text x="170" y="42" text-anchor="middle" fill="#166534" font-size="11" font-weight="600">✓ COMMITUJ</text>
+        <text x="60" y="65" fill="#166534" font-size="11">• kod źródłowy (.py, .js, .html)</text>
+        <text x="60" y="83" fill="#166534" font-size="11">• package.json / requirements.txt</text>
+        <text x="60" y="101" fill="#166534" font-size="11">• README, dokumentacja, testy</text>
+
+        <!-- NO column -->
+        <rect x="370" y="20" width="280" height="100" rx="6" fill="#fee2e2" stroke="#991b1b" stroke-width="1"/>
+        <text x="510" y="42" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="600">✗ IGNORUJ</text>
+        <text x="400" y="65" fill="#991b1b" font-size="11">• node_modules/, venv/, __pycache__</text>
+        <text x="400" y="83" fill="#991b1b" font-size="11">• .env, klucze API, hasła</text>
+        <text x="400" y="101" fill="#991b1b" font-size="11">• pliki IDE, logi, pliki build</text>
+
+        <!-- separator -->
+        <text x="340" y="75" text-anchor="middle" fill="#c8c0b0" font-size="20">↔</text>
+      </svg>
+    </div>
+  </div>
+</article>
+
+<!-- TIP 5 -->
+<article class="tip" id="s5">
+  <div class="tip-number" aria-hidden="true">05</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-collab">Współpraca</span>
+    <h2>Pull Request to rozmowa, nie formularz</h2>
+    <p>PR to nie tylko mechanizm merge. To przestrzeń do code review, dyskusji i dokumentowania decyzji. Dobry PR ma tytuł, kontekst i opis co zmieniono i dlaczego.</p>
+
+    <!-- INFOGRAPHIC: PR Lifecycle -->
+    <div class="infographic" aria-label="Cykl życia Pull Requesta">
+      <svg viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg" font-family="DM Mono, monospace" font-size="11">
+        <rect width="680" height="170" fill="#1a1a1a"/>
+
+        <defs>
+          <marker id="arr2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#6b7280"/>
+          </marker>
+        </defs>
+
+        <!-- steps -->
+        <g>
+          <rect x="20" y="55" width="90" height="50" rx="5" fill="#1e3a5f"/>
+          <text x="65" y="77" text-anchor="middle" fill="#93c5fd" font-size="10">branch</text>
+          <text x="65" y="93" text-anchor="middle" fill="#bfdbfe" font-size="9">+ commity</text>
+        </g>
+        <line x1="110" y1="80" x2="138" y2="80" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+        <g>
+          <rect x="140" y="55" width="90" height="50" rx="5" fill="#1c3a2a"/>
+          <text x="185" y="77" text-anchor="middle" fill="#86efac" font-size="10">push</text>
+          <text x="185" y="93" text-anchor="middle" fill="#bbf7d0" font-size="9">origin</text>
+        </g>
+        <line x1="230" y1="80" x2="258" y2="80" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+        <g>
+          <rect x="260" y="55" width="90" height="50" rx="5" fill="#3b1f1f"/>
+          <text x="305" y="77" text-anchor="middle" fill="#fca5a5" font-size="10">open PR</text>
+          <text x="305" y="93" text-anchor="middle" fill="#fecaca" font-size="9">GitHub UI</text>
+        </g>
+        <line x1="350" y1="80" x2="378" y2="80" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+        <g>
+          <rect x="380" y="55" width="90" height="50" rx="5" fill="#2d2a1a"/>
+          <text x="425" y="77" text-anchor="middle" fill="#fde68a" font-size="10">review</text>
+          <text x="425" y="93" text-anchor="middle" fill="#fef3c7" font-size="9">komentarze</text>
+        </g>
+        <line x1="470" y1="80" x2="498" y2="80" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+        <g>
+          <rect x="500" y="55" width="90" height="50" rx="5" fill="#c84b31"/>
+          <text x="545" y="77" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">MERGE</text>
+          <text x="545" y="93" text-anchor="middle" fill="#fce7e2" font-size="9">do main ✓</text>
+        </g>
+
+        <!-- tip -->
+        <text x="340" y="148" text-anchor="middle" fill="#6b7280" font-size="10">Squash merge = czystsza historia | Rebase = liniowa historia</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <strong>Szablon opisu PR</strong>
+      ## Co zmieniono / ## Dlaczego / ## Jak testować / ## Screenshots — te sekcje wystarczą do dobrego review.
+    </div>
+  </div>
+</article>
+
+<!-- TIP 6 -->
+<article class="tip" id="s6">
+  <div class="tip-number" aria-hidden="true">06</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-basics">Podstawy</span>
+    <h2>README to twarzówka projektu</h2>
+    <p>Dobry README to pierwsze 30 sekund wrażenia. Powinien odpowiedzieć: co to jest, jak uruchomić, jak używać, jak kontrybować.</p>
+    <div class="pill-list">
+      <span class="pill">## Co to jest</span>
+      <span class="pill">## Instalacja</span>
+      <span class="pill">## Użycie</span>
+      <span class="pill">## API</span>
+      <span class="pill">## Contributing</span>
+      <span class="pill">## Licencja</span>
+    </div>
+    <p style="margin-top:0.8rem">Dodaj badges (build status, coverage, version) — są małe, a od razu sygnalizują dojrzałość projektu.</p>
+  </div>
+</article>
+
+<!-- TIP 7 -->
+<article class="tip" id="s7">
+  <div class="tip-number" aria-hidden="true">07</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-collab">Współpraca</span>
+    <h2>Issues to system ticketów — nie tylko dla bugów</h2>
+    <p>GitHub Issues to nie tylko bugi. Używaj ich do feature requests, pytań, dyskusji. Połącz z Pull Requestem przez <code>Closes #123</code> w opisie PR — automatycznie zamknie issue po merge.</p>
+
+    <!-- INFOGRAPHIC: Issue → Branch → PR → Merge -->
+    <div class="infographic" aria-label="Przepływ: Issue do Merge">
+      <svg viewBox="0 0 680 120" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+        <rect width="680" height="120" fill="#ede9df"/>
+        <defs>
+          <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#c8c0b0"/>
+          </marker>
+        </defs>
+        <!-- flow nodes -->
+        <rect x="20" y="35" width="110" height="50" rx="5" fill="#0d0d0d"/>
+        <text x="75" y="58" text-anchor="middle" fill="#f5f2eb" font-size="11">📋 Issue</text>
+        <text x="75" y="74" text-anchor="middle" fill="#7a7060" font-size="9">#42 nowa funkcja</text>
+
+        <line x1="130" y1="60" x2="168" y2="60" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+        <rect x="170" y="35" width="130" height="50" rx="5" fill="#0d0d0d"/>
+        <text x="235" y="58" text-anchor="middle" fill="#f5f2eb" font-size="11">🌿 Branch</text>
+        <text x="235" y="74" text-anchor="middle" fill="#86efac" font-size="9">feature/nowa-funkcja</text>
+
+        <line x1="300" y1="60" x2="338" y2="60" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+        <rect x="340" y="35" width="130" height="50" rx="5" fill="#0d0d0d"/>
+        <text x="405" y="58" text-anchor="middle" fill="#f5f2eb" font-size="11">🔀 Pull Request</text>
+        <text x="405" y="74" text-anchor="middle" fill="#fbbf24" font-size="9">Closes #42</text>
+
+        <line x1="470" y1="60" x2="508" y2="60" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+        <rect x="510" y="35" width="150" height="50" rx="5" fill="#c84b31"/>
+        <text x="585" y="58" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">✓ Merge → Zamknięte</text>
+        <text x="585" y="74" text-anchor="middle" fill="#fce7e2" font-size="9">issue auto-close</text>
+      </svg>
+    </div>
+  </div>
+</article>
+
+<!-- TIP 8 -->
+<article class="tip" id="s8">
+  <div class="tip-number" aria-hidden="true">08</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-pro">Pro</span>
+    <h2>GitHub Actions — automatyzuj wszystko</h2>
+    <p>CI/CD bez wychodzenia z GitHub. Testy przy każdym push, deploy po merge do main, automatyczne powiadomienia — wszystko w plikach YAML w katalogu <code>.github/workflows/</code>.</p>
+
+    <div class="code-block"><code>
+<span class="comment"># .github/workflows/ci.yml</span><br>
+<span class="flag">name:</span> <span class="str">CI Pipeline</span><br>
+<span class="flag">on:</span> [push, pull_request]<br><br>
+<span class="flag">jobs:</span><br>
+&nbsp;&nbsp;<span class="flag">test:</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="flag">runs-on:</span> ubuntu-latest<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="flag">steps:</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">- uses:</span> actions/checkout@v4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">- run:</span> <span class="str">npm test</span>
+    </code></div>
+
+    <div class="callout">
+      <strong>Kiedy uruchamia się workflow?</strong>
+      Na push, PR, schedule (cron), manualnie — możesz triggerować na wszystko. Marketplace ma tysiące gotowych actions.
+    </div>
+  </div>
+</article>
+
+<!-- TIP 9 -->
+<article class="tip" id="s9">
+  <div class="tip-number" aria-hidden="true">09</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-collab">Współpraca</span>
+    <h2>Fork → Clone → PR — droga kontrybucji open source</h2>
+    <p>Chcesz naprawić bug w cudzym projekcie? Fork tworzy kopię repo na Twoim koncie, pracujesz lokalnie, a Pull Request wysyłasz do oryginalnego repo. To podstawa open source.</p>
+
+    <!-- INFOGRAPHIC: Fork flow -->
+    <div class="infographic" aria-label="Przepływ: Fork i kontrybucja">
+      <svg viewBox="0 0 680 180" xmlns="http://www.w3.org/2000/svg" font-family="DM Mono, monospace" font-size="11">
+        <rect width="680" height="180" fill="#ede9df"/>
+
+        <!-- Upstream -->
+        <rect x="260" y="15" width="160" height="50" rx="6" fill="#1a4d7c"/>
+        <text x="340" y="38" text-anchor="middle" fill="#bfdbfe" font-size="10">🏛 original/repo</text>
+        <text x="340" y="54" text-anchor="middle" fill="#93c5fd" font-size="9">upstream</text>
+
+        <!-- Fork -->
+        <rect x="460" y="15" width="160" height="50" rx="6" fill="#2d6a4f"/>
+        <text x="540" y="38" text-anchor="middle" fill="#bbf7d0" font-size="10">🍴 ty/repo</text>
+        <text x="540" y="54" text-anchor="middle" fill="#86efac" font-size="9">fork na GitHub</text>
+
+        <!-- Clone / local -->
+        <rect x="460" y="110" width="160" height="50" rx="6" fill="#0d0d0d"/>
+        <text x="540" y="133" text-anchor="middle" fill="#f5f2eb" font-size="10">💻 local clone</text>
+        <text x="540" y="149" text-anchor="middle" fill="#7a7060" font-size="9">git clone fork</text>
+
+        <!-- PR arrow back -->
+        <rect x="60" y="110" width="160" height="50" rx="6" fill="#c84b31"/>
+        <text x="140" y="133" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Pull Request</text>
+        <text x="140" y="149" text-anchor="middle" fill="#fce7e2" font-size="9">do original/repo</text>
+
+        <!-- arrows -->
+        <defs>
+          <marker id="arr4" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#c8c0b0"/>
+          </marker>
+        </defs>
+
+        <!-- upstream → fork -->
+        <line x1="420" y1="40" x2="458" y2="40" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr4)"/>
+        <text x="439" y="33" text-anchor="middle" fill="#7a7060" font-size="9">fork</text>
+
+        <!-- fork → local -->
+        <line x1="540" y1="65" x2="540" y2="108" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr4)"/>
+        <text x="555" y="90" fill="#7a7060" font-size="9">clone</text>
+
+        <!-- local → PR -->
+        <line x1="458" y1="135" x2="222" y2="135" stroke="#c8c0b0" stroke-width="1.5" marker-end="url(#arr4)"/>
+        <text x="340" y="128" text-anchor="middle" fill="#7a7060" font-size="9">push → PR</text>
+
+        <!-- PR → upstream -->
+        <line x1="140" y1="110" x2="300" y2="65" stroke="#c84b31" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr4)"/>
+      </svg>
+    </div>
+  </div>
+</article>
+
+<!-- TIP 10 -->
+<article class="tip" id="s10">
+  <div class="tip-number" aria-hidden="true">10</div>
+  <div class="tip-body">
+    <span class="tip-tag tag-pro">Pro</span>
+    <h2>SSH Keys — uwierzytelniaj raz, push zawsze</h2>
+    <p>Zamiast wpisywać hasło przy każdym push, skonfiguruj klucz SSH. Raz ustawiony — działa automatycznie. To też bezpieczniejsze niż hasło.</p>
+
+    <div class="code-block"><code>
+<span class="comment"># 1. Wygeneruj klucz</span><br>
+<span class="cmd">ssh-keygen</span> <span class="flag">-t</span> ed25519 <span class="flag">-C</span> <span class="str">"twoj@email.com"</span><br><br>
+<span class="comment"># 2. Skopiuj klucz publiczny</span><br>
+<span class="cmd">cat</span> ~/.ssh/id_ed25519.pub<br><br>
+<span class="comment"># 3. Wklej w GitHub → Settings → SSH Keys</span><br><br>
+<span class="comment"># 4. Testuj połączenie</span><br>
+<span class="cmd">ssh</span> <span class="flag">-T</span> git@github.com
+    </code></div>
+
+    <!-- INFOGRAPHIC: SSH vs HTTPS -->
+    <div class="infographic" aria-label="Porównanie: SSH vs HTTPS">
+      <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+        <rect width="680" height="110" fill="#ede9df"/>
+
+        <!-- SSH -->
+        <rect x="30" y="20" width="290" height="70" rx="6" fill="#0d0d0d"/>
+        <text x="175" y="44" text-anchor="middle" fill="#86efac" font-size="12" font-weight="600">SSH (zalecane)</text>
+        <text x="175" y="63" text-anchor="middle" fill="#7a7060" font-size="11">Klucz raz → push bez hasła</text>
+        <text x="175" y="80" text-anchor="middle" fill="#7a7060" font-size="11">git@github.com:user/repo.git</text>
+
+        <!-- HTTPS -->
+        <rect x="360" y="20" width="290" height="70" rx="6" fill="#f5f2eb" stroke="#c8c0b0" stroke-width="1"/>
+        <text x="505" y="44" text-anchor="middle" fill="#7a7060" font-size="12" font-weight="600">HTTPS (podstawowe)</text>
+        <text x="505" y="63" text-anchor="middle" fill="#9a9080" font-size="11">Token/hasło przy każdym push</text>
+        <text x="505" y="80" text-anchor="middle" fill="#9a9080" font-size="11">https://github.com/user/repo.git</text>
+      </svg>
+    </div>
+  </div>
+</article>
+
+</main>
+
+<footer>
+  <p>GitHub Poradnik · 10 kroków od init do pro · Używaj <code>git --help</code> kiedy utkniesz</p>
+</footer>
+
+</body>
 </html>
